@@ -86,7 +86,7 @@ const SubTitle = styled.div`
 const RowStyle = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 20px; /* 버튼 사이의 간격 */
+  gap: 20px;
 `;
 
 const ColumnStyle = styled.div`
