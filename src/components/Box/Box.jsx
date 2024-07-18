@@ -9,12 +9,14 @@ const Box = () => {
   const [values, setValues] = useState({
     red: "",
     yellow: "",
+    green: "",
     blue: "",
   });
 
   const [hasError, setHasError] = useState({
     red: false,
     yellow: false,
+    green: false,
     blue: false,
   });
 
@@ -39,6 +41,9 @@ const Box = () => {
       yellow:
         values.yellow === "" ||
         !(parseInt(values.yellow) >= 0 && parseInt(values.yellow) <= 255),
+      green:
+        values.green === "" ||
+        !(parseInt(values.green) >= 0 && parseInt(values.green) <= 255),
       blue:
         values.blue === "" ||
         !(parseInt(values.blue) >= 0 && parseInt(values.blue) <= 255),
@@ -49,6 +54,7 @@ const Box = () => {
       try {
         await set(ref(db, "LED/Red"), { bright: parseInt(values.red) });
         await set(ref(db, "LED/Yellow"), { bright: parseInt(values.yellow) });
+        await set(ref(db, "LED/Green"), { bright: parseInt(values.green) });
         await set(ref(db, "LED/Blue"), { bright: parseInt(values.blue) });
       } catch (e) {
         console.error("Error adding document: ", e);
@@ -73,6 +79,12 @@ const Box = () => {
           hasError={hasError.yellow}
         />
         <StyledInput
+          label="초록색"
+          value={values.green}
+          onChange={handleChange("green")}
+          hasError={hasError.green}
+        />
+        <StyledInput
           label="파란색"
           value={values.blue}
           onChange={handleChange("blue")}
@@ -88,7 +100,7 @@ export default Box;
 
 const BoxStyle = styled.div`
   width: 630px;
-  height: 600px;
+  height: 727px;
   background-color: white;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   border-radius: 20px;
@@ -107,7 +119,6 @@ const EmptyButtonWrapper = styled.div`
   height: 100%;
   flex-direction: column;
   font-family: "Pretendard", sans-serif;
-  gap: 20px;
 `;
 
 const StyledInput = styled(Input).attrs((props) => ({
